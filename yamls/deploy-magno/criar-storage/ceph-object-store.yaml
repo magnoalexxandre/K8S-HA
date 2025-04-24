@@ -1,0 +1,22 @@
+apiVersion: ceph.rook.io/v1
+kind: CephObjectStore
+metadata:
+  name: my-store
+  namespace: rook-ceph
+spec:
+  metadataPool:
+    failureDomain: host
+    replicated:
+      size: 3 # Número de réplicas para o pool de metadados
+  dataPool:
+    failureDomain: host
+    replicated:
+      size: 3 # Número de réplicas para o pool de dados
+  preservePoolsOnDelete: true # Mantém os pools quando o objeto for excluído
+  gateway:
+    sslCertificateRef: "" # Referência ao certificado SSL (opcional)
+    port: 8080 # Porta para o gateway RGW
+    securePort: null # Porta segura (SSL) (opcional)
+    instances: 1 # Número de instâncias do RGW
+    placement: {} # Configurações de colocação (opcional)
+    resources: {} # Recursos (CPU, memória) para o RGW (opcional)

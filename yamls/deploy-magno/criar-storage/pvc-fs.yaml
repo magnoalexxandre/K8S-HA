@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ceph-nfs-pvc
+  namespace: rook-ceph
+spec:
+  storageClassName: storageclass-nfs
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Gi

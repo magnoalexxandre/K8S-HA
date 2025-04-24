@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ceph-block-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce # Modo de acesso (ReadWriteOnce, ReadOnlyMany, etc.)
+  resources:
+    requests:
+      storage: 50Gi # Tamanho do volume
+  storageClassName: rook-ceph-block # Nome do StorageClass criado anteriormente

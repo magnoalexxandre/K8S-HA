@@ -1,0 +1,22 @@
+apiVersion: ceph.rook.io/v1
+kind: CephFilesystem
+metadata:
+  name: ceph-nfs
+  namespace: rook-ceph
+spec:
+  metadataPool:
+    failureDomain: host
+    replicated:
+      size: 3 # Número de réplicas para o pool de metadados
+    parameters:
+      compression_mode: none # Opções: none, passive, aggressive
+  dataPools:
+    - failureDomain: host
+      replicated:
+        size: 3 # Número de réplicas para o pool de dados
+      parameters:
+        compression_mode: none # Opções: none, passive, aggressive
+  preserveFilesystemOnDelete: true # Mantém os dados quando o filesystem for excluído
+  metadataServer:
+    activeCount: 1 # Número de servidores de metadados ativos
+    activeStandby: true # Ativa standby para alta disponibilidade

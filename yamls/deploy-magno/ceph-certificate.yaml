@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ceph-certificado
+  namespace: infra-ns
+spec:
+  secretName: ceph-tls-secret # Nome do segredo onde o certificado será armazenado
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: ceph.deinfra.sc.gov.br
+  dnsNames:
+    - ceph.deinfra.sc.gov.br

@@ -1,0 +1,22 @@
+apiVersion: ceph.rook.io/v1
+kind: CephNFSExport
+metadata:
+  name: nfs-export  # Nome da exportação
+  namespace: rook-ceph  # Substitua pelo namespace onde o Rook-Ceph está instalado
+spec:
+  server:
+    name: nfs-server  # Nome do cluster NFS (CephNFS)
+  export:
+    path: /nfs-share  # Caminho virtual (pseudo-path) da exportação
+    clusterId: nfs-server  # ID do cluster NFS
+    pseudo: /nfs-share  # Pseudo-path usado pelos clientes NFS
+    accessType: RW  # Tipo de acesso (RW = Leitura/Escrita, RO = Somente Leitura)
+    squash: no_root_squash  # Opções de squash (none, root_squash, etc.)
+    protocols:
+      - 4  # Versão do protocolo NFS (ex.: 4)
+    transports:
+      - TCP  # Protocolo de transporte (TCP ou UDP)
+    fsal:
+      name: CEPH  # Backend usado (CEPH para CephFS)
+      user_id: nfs-user  # ID do usuário NFS (opcional)
+      fs_name: my-cephfs  # Nome do sistema de arquivos CephFS

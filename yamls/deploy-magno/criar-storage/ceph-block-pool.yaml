@@ -1,0 +1,11 @@
+apiVersion: ceph.rook.io/v1
+kind: CephBlockPool
+metadata:
+  name: nfs-pool
+  namespace: rook-ceph
+spec:
+  failureDomain: host # Pode ser "host" ou "osd"
+  replicated:
+    size: 3 # Número de réplicas (recomendado 3 para alta disponibilidade)
+  parameters:
+    compression_mode: none # Opções: none, passive, aggressive

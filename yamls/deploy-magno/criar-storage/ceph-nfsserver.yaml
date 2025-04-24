@@ -1,0 +1,11 @@
+apiVersion: ceph.rook.io/v1
+kind: CephNFS
+metadata:
+  name: nfs-server
+  namespace: rook-ceph  # Substitua pelo namespace onde o Rook-Ceph está instalado
+spec:
+  rados:
+    pool: ceph-nfs-data0      # Nome do pool criado anteriormente
+    namespace: nfs-ns    # Namespace dentro do pool (opcional)
+  server:
+    active: 1            # Número de servidores NFS ativos

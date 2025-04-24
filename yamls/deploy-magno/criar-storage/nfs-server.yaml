@@ -1,0 +1,14 @@
+apiVersion: nfs.rook.io/v1alpha1
+kind: NFSServer
+metadata:
+  name: nfs-server
+  namespace: rook-ceph
+spec:
+  replicas: 2
+  exports:
+  - name: nfs-share
+    server:
+      accessMode: ReadWrite
+      squash: "none"
+    persistentVolumeClaim:
+      claimName: ceph-nfs-pvc
