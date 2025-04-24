@@ -1,0 +1,82 @@
+# minio-tenant.yaml
+apiVersion: minio.min.io/v2
+kind: Tenant
+metadata:
+  annotations:
+    prometheus.io/path: /minio/v2/metrics/cluster
+    prometheus.io/port: "9000"
+    prometheus.io/scrape: "true"
+  labels:
+    app: minio
+  name: minio-tenant
+  namespace: integra-glpi-ns
+spec:
+  certConfig: {}
+  configuration:
+    name: minio-config
+  env:
+  - name: MINIO_SERVER_URL
+    value: "http://minioback.deinfra.sc.gov.br:80"
+  - name: MINIO_BROWSER_REDIRECT_URL
+    value: "http://miniofront.deinfra.sc.gov.br:80"  
+  externalCaCertSecret: []
+  externalCertSecret: []
+  externalClientCertSecrets: []
+  features:
+    bucketDNS: false
+    domains: {}
+  image: quay.io/minio/minio:RELEASE.2024-11-07T00-52-20Z
+  imagePullSecret: {}
+  mountPath: /export
+  podManagementPolicy: Parallel
+  pools:
+  - affinity:
+      nodeAffinity: {}
+      podAffinity: {}
+      podAntiAffinity: {}
+    containerSecurityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+        - ALL
+      runAsGroup: 1000
+      runAsNonRoot: true
+      runAsUser: 1000
+      seccompProfile:
+        type: RuntimeDefault
+    name: pool-0
+    nodeSelector: {}
+    resources:
+      requests:
+        cpu: "0.5"
+        memory: "1Gi"
+      limits:
+        cpu: "0.5"
+        memory: "1Gi"
+    securityContext:
+      fsGroup: 1000
+      fsGroupChangePolicy: OnRootMismatch
+      runAsGroup: 1000
+      runAsNonRoot: true
+      runAsUser: 1000
+    servers: 4
+    tolerations: []
+    topologySpreadConstraints: []
+    volumeClaimTemplate:
+      apiVersion: v1
+      kind: persistentvolumeclaims
+      metadata: {}
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 11Gi # Ajustado para 11 GiB
+        storageClassName: storageclass-nfs # Ajustado para sua StorageClass
+      status: {}
+    volumesPerServer: 1 # Reduzi para 1 volume por servidor (total 4 volumes de 11Gi)
+  priorityClassName: ""
+  requestAutoCert: false
+  serviceAccountName: ""
+  users:
+  - name: minio-user

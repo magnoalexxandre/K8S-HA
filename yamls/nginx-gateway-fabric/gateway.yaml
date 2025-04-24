@@ -1,0 +1,427 @@
+# Gateway yaml file
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: shared-gateway
+  namespace: infra-ns
+spec:
+  gatewayClassName: nginx
+  listeners:
+  - name: http-ceph
+    protocol: HTTP
+    port: 80
+    hostname: ceph.deinfra.sc.gov.br
+    allowedRoutes:
+      namespaces:
+        from: Selector
+        selector:
+          matchLabels:
+            shared-gateway-access: "true"   
+  - name: https-ceph
+    protocol: HTTPS
+    port: 443
+    hostname: ceph.deinfra.sc.gov.br
+    tls:
+      mode: Terminate
+      certificateRefs:
+      - kind: Secret
+        name: ceph-tls-secret
+        namespace: infra-ns
+    allowedRoutes:
+      namespaces:
+        from: Selector
+        selector:
+          matchLabels:
+            shared-gateway-access: "true"
+  - name: http-ceph-s3
+    protocol: HTTP
+    port: 80
+    hostname: ceph-s3.deinfra.sc.gov.br
+    allowedRoutes:
+      namespaces:
+        from: Selector
+        selector:
+          matchLabels:
+            shared-gateway-access: "true"   
+  - name: https-ceph-s3
+    protocol: HTTPS
+    port: 443
+    hostname: ceph-s3.deinfra.sc.gov.br
+    tls:
+      mode: Terminate
+      certificateRefs:
+      - kind: Secret
+        name: ceph-s3-tls-secret
+        namespace: infra-ns
+    allowedRoutes:
+      namespaces:
+        from: Selector
+        selector:
+          matchLabels:
+            shared-gateway-access: "true"
+ 
+  - name: http-locust
+    protocol: HTTP
+    port: 80
+    hostname: locust.deinfra.sc.gov.br
+    allowedRoutes:
+      namespaces:
+        from: Selector
+        selector:
+          matchLabels:
+            shared-gateway-access: "true"   
+  - name: https-locust
+    protocol: HTTPS
+    port: 443
+    hostname: locust.deinfra.sc.gov.br
+    tls:
+      mode: Terminate
+      certificateRefs:
+      - kind: Secret
+        name: locust-tls-secret
+        namespace: infra-ns
+    allowedRoutes:
+      namespaces:
+        from: Selector
+        selector:
+          matchLabels:
+            shared-gateway-access: "true"
+  - name: http-quadrado
+    protocol: HTTP
+    port: 80
+    hostname: quadrado.deinfra.sc.gov.br
+    allowedRoutes:
+      namespaces:
+        from: Selector
+        selector:
+          matchLabels:
+            shared-gateway-access: "true"   
+  - name: https-quadrado
+    protocol: HTTPS
+    port: 443
+    hostname: quadrado.deinfra.sc.gov.br
+    tls:
+      mode: Terminate
+      certificateRefs:
+      - kind: Secret
+        name: quadrado-tls-secret
+        namespace: infra-ns
+    allowedRoutes:
+      namespaces:
+        from: Selector
+        selector:
+          matchLabels:
+            shared-gateway-access: "true"
+  - name: http-auth-sacf
+    protocol: HTTP
+    port: 80
+    hostname: auth-sacf.deinfra.sc.gov.br
+    allowedRoutes:
+      namespaces:
+        from: Selector
+        selector:
+          matchLabels:
+            shared-gateway-access: "true"   
+  - name: https-auth-sacf
+    protocol: HTTPS
+    port: 443
+    hostname: auth-sacf.deinfra.sc.gov.br
+    tls:
+      mode: Terminate
+      certificateRefs:
+      - kind: Secret
+        name: auth-sacf-tls-secret
+        namespace: infra-ns
+    allowedRoutes:
+      namespaces:
+        from: Selector
+        selector:
+          matchLabels:
+            shared-gateway-access: "true"
+  - name: http-api-gateway-sacf
+    protocol: HTTP
+    port: 80
+    hostname: api-gateway.deinfra.sc.gov.br
+    allowedRoutes:
+      namespaces:
+        from: Selector
+        selector:
+          matchLabels:
+            shared-gateway-access: "true"   
+  - name: https-api-gateway-sacf
+    protocol: HTTPS
+    port: 443
+    hostname: api-gateway.deinfra.sc.gov.br
+    tls:
+      mode: Terminate
+      certificateRefs:
+      - kind: Secret
+        name: api-gateway-tls-secret
+        namespace: infra-ns
+    allowedRoutes:
+      namespaces:
+        from: Selector
+        selector:
+          matchLabels:
+            shared-gateway-access: "true"
+  - name: http-autorizacao-sacf
+    protocol: HTTP
+    port: 80
+    hostname: autorizacao-sacf.deinfra.sc.gov.br
+    allowedRoutes:
+      namespaces:
+        from: Selector
+        selector:
+          matchLabels:
+            shared-gateway-access: "true"   
+  - name: https-autorizacao-sacf
+    protocol: HTTPS
+    port: 443
+    hostname: autorizacao-sacf.deinfra.sc.gov.br
+    tls:
+      mode: Terminate
+      certificateRefs:
+      - kind: Secret
+        name: autorizacao-tls-secret
+        namespace: infra-ns
+    allowedRoutes:
+      namespaces:
+        from: Selector
+        selector:
+          matchLabels:
+            shared-gateway-access: "true"
+  - name: http-financeiro-sacf
+    protocol: HTTP
+    port: 80
+    hostname: financeiro-sacf.deinfra.sc.gov.br
+    allowedRoutes:
+      namespaces:
+        from: Selector
+        selector:
+          matchLabels:
+            shared-gateway-access: "true"   
+  - name: https-financeiro-sacf
+    protocol: HTTPS
+    port: 443
+    hostname: financeiro-sacf.deinfra.sc.gov.br
+    tls:
+      mode: Terminate
+      certificateRefs:
+      - kind: Secret
+        name: api-financeiro-tls-secret
+        namespace: infra-ns
+    allowedRoutes:
+      namespaces:
+        from: Selector
+        selector:
+          matchLabels:
+            shared-gateway-access: "true"
+  - name: http-gestao-doc-sacf
+    protocol: HTTP
+    port: 80
+    hostname: gd-sacf.deinfra.sc.gov.br
+    allowedRoutes:
+      namespaces:
+        from: Selector
+        selector:
+          matchLabels:
+            shared-gateway-access: "true"   
+  - name: https-gestao-doc-sacf
+    protocol: HTTPS
+    port: 443
+    hostname: gd-sacf.deinfra.sc.gov.br
+    tls:
+      mode: Terminate
+      certificateRefs:
+      - kind: Secret
+        name: api-gestao-doc-tls-secret
+        namespace: infra-ns
+    allowedRoutes:
+      namespaces:
+        from: Selector
+        selector:
+          matchLabels:
+            shared-gateway-access: "true"
+  - name: http-typebot-builder
+    protocol: HTTP
+    port: 80
+    hostname: builder.deinfra.sc.gov.br
+    allowedRoutes:
+      namespaces:
+        from: Selector
+        selector:
+          matchLabels:
+            shared-gateway-access: "true"   
+  - name: https-typebot-builder
+    protocol: HTTPS
+    port: 443
+    hostname: builder.deinfra.sc.gov.br
+    tls:
+      mode: Terminate
+      certificateRefs:
+      - kind: Secret
+        name: typebot-builder-tls-secret
+        namespace: infra-ns
+    allowedRoutes:
+      namespaces:
+        from: Selector
+        selector:
+          matchLabels:
+            shared-gateway-access: "true"
+  - name: http-typebot-viewer
+    protocol: HTTP
+    port: 80
+    hostname: viewer.deinfra.sc.gov.br
+    allowedRoutes:
+      namespaces:
+        from: Selector
+        selector:
+          matchLabels:
+            shared-gateway-access: "true"   
+  - name: https-typebot-viewer
+    protocol: HTTPS
+    port: 443
+    hostname: viewer.deinfra.sc.gov.br
+    tls:
+      mode: Terminate
+      certificateRefs:
+      - kind: Secret
+        name: typebot-viewer-tls-secret
+        namespace: infra-ns
+    allowedRoutes:
+      namespaces:
+        from: Selector
+        selector:
+          matchLabels:
+            shared-gateway-access: "true"
+  - name: http-evolution-api
+    protocol: HTTP
+    port: 80
+    hostname: evolution-api.deinfra.sc.gov.br
+    allowedRoutes:
+      namespaces:
+        from: Selector
+        selector:
+          matchLabels:
+            shared-gateway-access: "true"   
+  - name: https-evolution-api
+    protocol: HTTPS
+    port: 443
+    hostname: evolution-api.deinfra.sc.gov.br
+    tls:
+      mode: Terminate
+      certificateRefs:
+      - kind: Secret
+        name: evolution-api-tls-secret
+        namespace: infra-ns
+    allowedRoutes:
+      namespaces:
+        from: Selector
+        selector:
+          matchLabels:
+            shared-gateway-access: "true"
+  - name: http-n8n
+    protocol: HTTP
+    port: 80
+    hostname: n8n.deinfra.sc.gov.br
+    allowedRoutes:
+      namespaces:
+        from: Selector
+        selector:
+          matchLabels:
+            shared-gateway-access: "true"   
+  - name: https-n8n
+    protocol: HTTPS
+    port: 443
+    hostname: n8n.deinfra.sc.gov.br
+    tls:
+      mode: Terminate
+      certificateRefs:
+      - kind: Secret
+        name: n8n-tls-secret
+        namespace: infra-ns
+    allowedRoutes:
+      namespaces:
+        from: Selector
+        selector:
+          matchLabels:
+            shared-gateway-access: "true"
+  - name: http-chatwoot
+    protocol: HTTP
+    port: 80
+    hostname: chatwoot.deinfra.sc.gov.br
+    allowedRoutes:
+      namespaces:
+        from: Selector
+        selector:
+          matchLabels:
+            shared-gateway-access: "true"   
+  - name: https-chatwoot
+    protocol: HTTPS
+    port: 443
+    hostname: chatwoot.deinfra.sc.gov.br
+    tls:
+      mode: Terminate
+      certificateRefs:
+      - kind: Secret
+        name: chatwoot-tls-secret
+        namespace: infra-ns
+    allowedRoutes:
+      namespaces:
+        from: Selector
+        selector:
+          matchLabels:
+            shared-gateway-access: "true"
+  - name: http-minio-back
+    protocol: HTTP
+    port: 80
+    hostname: minioback.deinfra.sc.gov.br
+    allowedRoutes:
+      namespaces:
+        from: Selector
+        selector:
+          matchLabels:
+            shared-gateway-access: "true"   
+  - name: https-minio-back
+    protocol: HTTPS
+    port: 443
+    hostname: minioback.deinfra.sc.gov.br
+    tls:
+      mode: Terminate
+      certificateRefs:
+      - kind: Secret
+        name: minio-back-tls-secret
+        namespace: infra-ns    
+    allowedRoutes:
+      namespaces:
+        from: Selector
+        selector:
+          matchLabels:
+            shared-gateway-access: "true"   
+  - name: http-minio-front
+    protocol: HTTP
+    port: 80
+    hostname: miniofront.deinfra.sc.gov.br
+    allowedRoutes:
+      namespaces:
+        from: Selector
+        selector:
+          matchLabels:
+            shared-gateway-access: "true"
+  - name: https-minio-front
+    protocol: HTTPS
+    port: 443
+    hostname: miniofront.deinfra.sc.gov.br
+    tls:
+      mode: Terminate
+      certificateRefs:
+      - kind: Secret
+        name: minio-front-tls-secret
+        namespace: infra-ns    
+    allowedRoutes:
+      namespaces:
+        from: Selector
+        selector:
+          matchLabels:
+            shared-gateway-access: "true"   
+ 

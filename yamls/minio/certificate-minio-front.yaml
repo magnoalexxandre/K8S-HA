@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: minio-front-certificado
+  namespace: infra-ns
+spec:
+  secretName: minio-front-tls-secret # Nome do segredo onde o certificado será armazenado
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: miniofront.deinfra.sc.gov.br
+  dnsNames:
+    - miniofront.deinfra.sc.gov.br

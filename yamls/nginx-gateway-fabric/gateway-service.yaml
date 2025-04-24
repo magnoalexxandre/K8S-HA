@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-gateway
+  namespace: nginx-gateway
+  labels:
+    app.kubernetes.io/name: nginx-gateway
+    app.kubernetes.io/instance: nginx-gateway
+    app.kubernetes.io/version: "1.4.0"
+spec:
+  type: LoadBalancer
+  loadBalancerIP: 200.19.194.88
+  selector:
+    app.kubernetes.io/name: nginx-gateway
+    app.kubernetes.io/instance: nginx-gateway
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 80
+      nodePort: 31437
+    - name: https
+      port: 443
+      protocol: TCP
+      targetPort: 443
+      nodePort: 31438
+#    - name: locust
+#      port: 8089
+#      protocol: TCP
+#      targetPort: 8089
+#      nodePort: 31440
+#    - name: rook-ceph
+#      port: 7000
+#      protocol: TCP
+#      targetPort: 7000
+#      nodePort: 31441
+#    - name: rook-ceph-s3
+#      port: 8080
+#      protocol: TCP
+#      targetPort: 8080
+#      nodePort: 31442
+#    - name: rook-ceph-https
+#      port: 8443
+#      protocol: TCP
+#      targetPort: 8443
+#      nodePort: 31443

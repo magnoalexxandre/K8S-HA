@@ -1,0 +1,26 @@
+# httproute-minio-back.yaml
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: minio-back-route
+  namespace: integra-glpi-ns
+spec:
+  parentRefs:
+  - name: shared-gateway
+    namespace: infra-ns
+  hostnames:
+    - minioback.deinfra.sc.gov.br
+  rules:
+  rules:
+#  - matches:
+#    - path:
+#        type: PathPrefix
+#        value: /
+#    filters:
+#    - type: RequestRedirect
+#      requestRedirect:
+#        scheme: https
+#        statusCode: 301
+  - backendRefs:
+    - name: minio # Ajustado para o serviço real
+      port: 80
