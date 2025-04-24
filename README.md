@@ -329,7 +329,6 @@ O arquivo `gateway.yaml` define múltiplos listeners para diferentes serviços, 
 - HTTP e HTTPS para Ceph
 - HTTP e HTTPS para Ceph S3
 - HTTP e HTTPS para MinIO (front e back)
-- HTTP e HTTPS para outros serviços (Locust, Quadrado, etc.)
 
 ### Configuração de Redirecionamento HTTP para HTTPS
 
