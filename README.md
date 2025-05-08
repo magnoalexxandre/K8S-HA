@@ -113,7 +113,7 @@ Execute os seguintes passos em todos os nós (master e worker):
 sudo apt update && sudo apt upgrade -y
 ```
 
-2. **Instalar o Container Runtime (containerd)**:
+2. **Instalar o Container Runtime (CRI-O)**:
 
 ```bash
 OBS: Note que devemos substituir as variáveis $KUBERNETES_VERSION e $CRIO_VERSION por v1.30 e v1.30 respectivamente. Isso pode ser feito de duas formas, a primeira exportando as variáveis com as diretivas export KUBERNETES_VERSION='v1.30'; export CRIO_VERSION='v1.30'
