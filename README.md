@@ -116,10 +116,36 @@ sudo apt update && sudo apt upgrade -y
 2. **Instalar o Container Runtime (containerd)**:
 
 ```bash
-sudo apt install -y containerd
-sudo mkdir -p /etc/containerd
-containerd config default | sudo tee /etc/containerd/config.toml
-sudo systemctl restart containerd
+OBS: Note que devemos substituir as variáveis $KUBERNETES_VERSION e $CRIO_VERSION por v1.30 e v1.30 respectivamente. Isso pode ser feito de duas formas, a primeira exportando as variáveis com as diretivas export KUBERNETES_VERSION='v1.30'; export CRIO_VERSION='v1.30'
+
+adiciona repositório nas listas de pacotes e adiciona as chaves
+curl -fsSL https://pkgs.k8s.io/addons:/cri-o:/stable:/$CRIO_VERSION/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/cri-o-apt-keyring.gpg
+echo "deb [signed-by=/etc/apt/keyrings/cri-o-apt-keyring.gpg] https://pkgs.k8s.io/addons:/cri-o:/stable:/$CRIO_VERSION/deb/ /" | tee /etc/apt/sources.list.d/cri-o.list
+
+atualiza a lista de pacotes e instala o cri-o
+apt-get update
+apt-get install cri-o
+
+Instalação do kubeadm, kubelet and kubectl
+Agora que eu tenho o container runtime instalado em todas as máquinas, chegou a hora de instalar o kubeadm, o kubelet e o kubectl. Então vamos seguir as etapas e executar esses passos em TODAS AS MÁQUINAS.
+
+Atualizo os pacotes necessários pra instalação
+sudo apt-get update && \
+sudo apt-get install -y apt-transport-https ca-certificates curl
+
+Download da chave pública
+If the directory /etc/apt/keyrings does not exist, it should be created before the curl command, read the note below.
+sudo mkdir -p -m 755 /etc/apt/keyrings
+
+curl -fsSL https://pkgs.k8s.io/core:/stable:/$KUBERNETES_VERSION/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/$KUBERNETES_VERSION/deb/ /" | tee /etc/apt/sources.list.d/kubernetes.list
+
+Atualização do repositório apt e instalação das ferramentas
+sudo apt-get update && \
+sudo apt-get install -y kubelet kubeadm kubectl
+
+Agora eu garanto que eles não sejam atualizados automaticamente.
+sudo apt-mark hold kubelet kubeadm kubectl
 ```
 
 3. **Desativar Swap**:
