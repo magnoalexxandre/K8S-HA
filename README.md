@@ -140,12 +140,6 @@ sudo mkdir -p -m 755 /etc/apt/keyrings
 curl -fsSL https://pkgs.k8s.io/core:/stable:/$KUBERNETES_VERSION/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/$KUBERNETES_VERSION/deb/ /" | tee /etc/apt/sources.list.d/kubernetes.list
 
-Atualização do repositório apt e instalação das ferramentas
-sudo apt-get update && \
-sudo apt-get install -y kubelet kubeadm kubectl
-
-Agora eu garanto que eles não sejam atualizados automaticamente.
-sudo apt-mark hold kubelet kubeadm kubectl
 ```
 
 3. **Desativar Swap**:
