@@ -131,20 +131,6 @@ atualiza a lista de pacotes e instala o cri-o
 apt-get update
 apt-get install cri-o
 
-Instalação do kubeadm, kubelet and kubectl
-Agora que eu tenho o container runtime instalado em todas as máquinas, chegou a hora de instalar o kubeadm, o kubelet e o kubectl. Então vamos seguir as etapas e executar esses passos em TODAS AS MÁQUINAS.
-
-Atualizo os pacotes necessários pra instalação
-sudo apt-get update && \
-sudo apt-get install -y apt-transport-https ca-certificates curl
-
-Download da chave pública
-If the directory /etc/apt/keyrings does not exist, it should be created before the curl command, read the note below.
-sudo mkdir -p -m 755 /etc/apt/keyrings
-
-curl -fsSL https://pkgs.k8s.io/core:/stable:/$KUBERNETES_VERSION/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/$KUBERNETES_VERSION/deb/ /" | tee /etc/apt/sources.list.d/kubernetes.list
-
 ```
 
 3. **Desativar Swap**:
@@ -179,9 +165,20 @@ sudo sysctl --system
 ```bash
 sudo apt update
 sudo apt install -y apt-transport-https curl
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
-sudo apt update
+Instalação do kubeadm, kubelet and kubectl
+Agora que eu tenho o container runtime instalado em todas as máquinas, chegou a hora de instalar o kubeadm, o kubelet e o kubectl. Então vamos seguir as etapas e executar esses passos em TODAS AS MÁQUINAS.
+
+Atualizo os pacotes necessários pra instalação
+sudo apt-get update && \
+sudo apt-get install -y apt-transport-https ca-certificates curl
+
+Download da chave pública
+If the directory /etc/apt/keyrings does not exist, it should be created before the curl command, read the note below.
+sudo mkdir -p -m 755 /etc/apt/keyrings
+
+curl -fsSL https://pkgs.k8s.io/core:/stable:/$KUBERNETES_VERSION/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/$KUBERNETES_VERSION/deb/ /" | tee /etc/apt/sources.list.d/kubernetes.list
+
 sudo apt install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
 ```
