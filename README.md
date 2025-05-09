@@ -330,8 +330,8 @@ kubectl apply -f yamls/nginx-gateway-fabric/infra-ns.yaml
 2. **Implantar o Nginx Gateway Fabric**:
 
 ```bash
-kubectl apply -f yamls/nginx-gateway-fabric/deploy-gateway-fabric.yaml
-```
+kubectl apply -f https://raw.githubusercontent.com/nginx/nginx-gateway-fabric/v1.6.2/deploy/crds.yaml
+kubectl apply -f https://raw.githubusercontent.com/nginx/nginx-gateway-fabric/v1.6.2/deploy/default/deploy.yaml```
 
 3. **Configurar o Serviço do Gateway**:
 
