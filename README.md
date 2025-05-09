@@ -327,11 +327,21 @@ O Nginx Gateway Fabric é utilizado como ingress controller para gerenciar o tr�
 kubectl apply -f yamls/nginx-gateway-fabric/infra-ns.yaml
 ```
 
-2. **Implantar o Nginx Gateway Fabric**:
+2. **Implantação do Nginx Gateway Fabric**:
 
+Instalar os recursos da API do Gateway
+```bash
+kubectl kustomize "https://github.com/nginx/nginx-gateway-fabric/config/crd/gateway-api/standard?ref=v1.6.2" | kubectl apply -f -
+```
+
+Implantar os CRDs do NGINX Gateway Fabric
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/nginx/nginx-gateway-fabric/v1.6.2/deploy/crds.yaml
-kubectl apply -f https://raw.githubusercontent.com/nginx/nginx-gateway-fabric/v1.6.2/deploy/default/deploy.yaml```
+```
+Implantar NGINX Gateway Fabric
+```bash
+kubectl apply -f https://raw.githubusercontent.com/nginx/nginx-gateway-fabric/v1.6.2/deploy/default/deploy.yaml
+```
 
 3. **Configurar o Serviço do Gateway**:
 
