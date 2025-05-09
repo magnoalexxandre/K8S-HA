@@ -107,10 +107,15 @@ A arquitetura do cluster segue o seguinte design:
 
 Execute os seguintes passos em todos os nós (master e worker):
 
-1. **Atualizar o Sistema Operacional**:
+1. **Atualizar o Sistema Operacional e instalar pré requisitos**:
 
 ```bash
-sudo apt update && sudo apt upgrade -y
+sudo apt update && \
+sudo apt install \
+ca-certificates \
+curl \
+gnupg \
+lsb-release -y
 ```
 
 2. **Instalar o Container Runtime (CRI-O)**:
